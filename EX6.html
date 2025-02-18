@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const convertButton = document.getElementById('convert');
+
+            convertButton.addEventListener('click', function () {
+                const temperature = parseFloat(document.getElementById('temperature').value);
+                const unit = document.querySelector('input[name="unit"]:checked');
+
+                if (isNaN(temperature) || !unit) {
+                    alert("กรุณากรอกค่าอุณหภูมิและเลือกหน่วยแปลง");
+                    return;
+                }
+
+                let result = 0;
+                let resultText = "";
+
+                if (unit.value === 'celsius') {
+                    result = (temperature * 9/5) + 32;
+                    resultText = `${temperature}°C เท่ากับ ${result.toFixed(2)}°F`;
+                } else {
+                    result = (temperature - 32) * 5/9;
+                    resultText = `${temperature}°F เท่ากับ ${result.toFixed(2)}°C`;
+                }
+
+                document.getElementById('result').textContent = resultText;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <label>กรอกอุณหภูมิ:</label>
+    <input type="number" id="temperature" placeholder="เช่น 30">
+    <br><br>
+    
+    <label>
+        <input type="radio" name="unit" value="celsius"> แปลงจาก °C เป็น °F
+    </label><br>
+    <label>
+        <input type="radio" name="unit" value="fahrenheit"> แปลงจาก °F เป็น °C
+    </label><br><br>
+
+    <button type="button" id="convert">Convert</button>
+
+    <h2>ผลลัพธ์: <span id="result"></span></h2>
+</body>
+</html>
